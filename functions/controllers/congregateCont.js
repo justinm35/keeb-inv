@@ -2,7 +2,9 @@ import puppeteer from "puppeteer";
 let result = { kbd: [], mino: [], apex: []}
 
 export const congregateSearch = async (query) => {
-    //Accept user search query from client side req
+
+    return new Promise( async(resolve, reject) => {
+        //Accept user search query from client side req
     if(query === "" | query === undefined) {
         console.log('No Input Given')
         return('nope')
@@ -36,11 +38,11 @@ export const congregateSearch = async (query) => {
             const image = imageSelectorApex[i];
             // const imageContent = await pageApex.$eval("div", image => image.getAttribute('data-bgset'))
             const imageContent = await pageApex.evaluate(element => element.getAttribute('data-srcset'), image)
-            const imageContentParsed = imageContent.split(' ')[0]
+            const imageContentParsed = imageContent?.split(' ')[0]
             result.apex.push({titleContent, priceContent, imageContentParsed})
         }
     }
-
+    await pageApex.close();
     console.log("step 1 done")
 
     const pageKbd = await browser.newPage()
@@ -63,11 +65,11 @@ export const congregateSearch = async (query) => {
             const image = imageSelectorKbd[i];
             // const imageContent = await pageKbd.$eval("div", image => image.getAttribute('data-bgset'))
             const imageContent = await pageKbd.evaluate(element => element.getAttribute('data-bgset'), image)
-            const imageContentParsed = imageContent.split(' ')[0]
+            const imageContentParsed = imageContent?.split(' ')[0]
             result.kbd.push({titleContent, priceContent, imageContentParsed})
         }
     }
-    
+    await pageKbd.close();
     console.log("step 2 done")
 
 
@@ -92,18 +94,21 @@ export const congregateSearch = async (query) => {
         const priceContent = await pageMino.evaluate(element => element.textContent, price)
         const image = imageSelectorMino[i];
         // const imageContent = await pageMino.$eval("div", image => image.getAttribute('data-bgset'))
-        const imageContent = await pageMino.evaluate(element => element.getAttribute('data-srcset'), image)
-        const imageContentParsed = imageContent.split(' ')[0]
+        // const imageContent = await pageMino.evaluate(element => element.getAttribute('data-srcset'), image)
+        let imageContentParsed;
+        await pageMino.evaluate(element => element.getAttribute('data-srcset'), image)
+                .then((imageContent)=>{imageContentParsed = imageContent?.split(' ')[0]})
+        // const imageContentParsed = imageContent.split(' ')[0]
         result.mino.push({titleContent, priceContent, imageContentParsed})
     }
     }  
 
     
-    console.log("step 3 done")
-    await pageApex.close();
-    await pageKbd.close();
     await pageMino.close()
+    console.log("step 3 done")
 
     await browser.close();
-    return result
+    // return result
+    resolve(result)
+    })
 }

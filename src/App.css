@@ -11,10 +11,17 @@
     cursor: pointer;
 }
 .nav-search{
+    color:aliceblue;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 1.2rem;
     display: inline;
-    font-size: 30px;
     float: right;
-    margin: 20px 20px;
+    margin: 0px 20px 40px 20px;
+}
+.nav-search:hover{
+    text-decoration: underline;
+    color:rgb(249, 156, 237);
 }
 .loading-text{
     font-family: 'Inter';

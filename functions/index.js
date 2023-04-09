@@ -12,8 +12,11 @@ app.use(cors())
 
 app.get('/search', async (req, res) => {
     console.log("Searching for : " + req.query.search)
-    const testRes = await congregateSearch(req.query.search)
-    res.status(200).json({success: true, method: 'search' ,result: testRes})
+    await congregateSearch(req.query.search)
+        .then((data)=>res.status(200).json({success: true, method: 'search' ,result: data}))
+        .catch((error)=> {
+            res.status(401).json({success:false, error: error })
+        })
 })
 
 // app.listen(3800, ()=> {console.log('Running on port 3500')})

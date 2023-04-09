@@ -32,9 +32,9 @@
     overflow-x: scroll;
     gap: 30px;
     justify-content: start;
-    padding: 20px;
+    padding: 30px;
     border-radius:10px;
-    border: 3px solid #c943e4;
+    border: 2px solid #787878;
     box-shadow: 0 0 20px #c55bd8;
 }
 .result-module{
@@ -80,7 +80,7 @@
   
   ::-webkit-scrollbar-thumb {
     background-color: #6b33c0a2;
-    border-radius: 6px;
+    border-radius: 8px;
     border: 2px solid transparent;
     background-clip: content-box;
   }
