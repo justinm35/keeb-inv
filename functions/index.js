@@ -19,6 +19,6 @@ app.get('/search', async (req, res) => {
         })
 })
 
-// app.listen(3800, ()=> {console.log('Running on port 3500')})
+// app.listen(3800, ()=> {console.log('Running on port 3800')})
 
 export const widgets = functions.runWith({timeoutSeconds: 300, memory: "1GB",}).https.onRequest(app);

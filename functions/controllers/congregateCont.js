@@ -22,7 +22,7 @@ export const congregateSearch = async (query) => {
     
     //Unable to click on button.btn element so pressed Enter instead
     await pageApex.keyboard.press('Enter')
-    await pageApex.waitForNavigation();
+    await pageApex.waitForNavigation({ waitUntil: 'networkidle0' });
     //Grabbing every item Title, Price, & ImageUrl
     const titleSelectorApex = await pageApex.$$('h2.ProductItem__Title > a')
     const priceSelectorApex = await pageApex.$$('span.ProductItem__Price:first-child')
@@ -50,7 +50,7 @@ export const congregateSearch = async (query) => {
     //Input user search query into textfield and press form submit button then wait for nav.
     await pageKbd.type('input[id="Search"]', searchQuery , {delay: 20})
     await pageKbd.click('button.btn.search-page-button');
-    await pageKbd.waitForNavigation();
+    await pageKbd.waitForNavigation({ waitUntil: 'networkidle0' });
     //Grabbing every item Title, Price, & ImageUrl
     const titleSelectorKbd = await pageKbd.$$('a.product-block__title-link')
     const priceSelectorKbd = await pageKbd.$$('span.theme-money')
@@ -80,7 +80,7 @@ export const congregateSearch = async (query) => {
     
     //Unable to click on button.btn element so pressed Enter instead
     await pageMino.keyboard.press('Enter')
-    await pageMino.waitForNavigation();
+    await pageMino.waitForNavigation({ waitUntil: 'networkidle0' });
     //Grabbing every item Title, Price, & ImageUrl
     const titleSelectorMino = await pageMino.$$('div.grid-product__title')
     const priceSelectorMino = await pageMino.$$('div.grid-product__price')
